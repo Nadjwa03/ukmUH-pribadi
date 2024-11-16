@@ -14,20 +14,23 @@
   <div class="min-h-screen bg-neutral-100 w-full">
     <h1 class="font-medium h-16 flex items-center text-xl px-6 py-4 bg-white">{{ $mode == 'edit' ? 'Edit' : 'Buat' }} UKM</h1>
     <div class="flex flex-col items-center px-6 py-6">
-      <form action="{{ $mode == 'edit' ? route('admin.club.edit', $data->id) : route('admin.club.create') }}" enctype="multipart/form-data" method="post" class="flex flex-col items-center max-w-80 w-full">
+      <form action="{{ $mode == 'edit' ? route('admin.club.edit', $data->id) : route('admin.club.create') }}" enctype="multipart/form-data" method="post" class="flex flex-col items-center max-w-96 w-full">
         @csrf
+        @if($mode == 'edit')
+        @method('PUT')
+        @endif
         <div class="w-full mt-8">
           <label for="name-input" class="block mb-2 text-sm font-medium text-neutral-900">Name</label>
-          <input value="{{ old('name', $data->name ?? '') }}" name="name" type="name" id="name-input" placeholder="Input nama UKM" class="bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+          <input value="{{ old('name', $data->name ?? '') }}" name="name" type="text" id="name-input" placeholder="Input nama UKM" class="bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
           @error('name')
-          <div class="text-xs text-red-600">{{ $message }}</div>
+          <div class="text-xs text-red-600 mt-0.5">{{ $message }}</div>
           @enderror
         </div>
         <div class="w-full mt-4">
           <label for="logo-input" class="block mb-2 text-sm font-medium text-neutral-900">Logo</label>
           <input aria-describedby="file_input_help" name="logo" type="file" id="logo-input" class="block w-full text-sm text-neutral-900 border border-neutral-300 rounded-lg cursor-pointer bg-neutral-50 focus:outline-none">
           @error('logo')
-          <div class="text-xs text-red-600">{{ $message }}</div>
+          <div class="text-xs text-red-600 mt-0.5">{{ $message }}</div>
           @enderror
         </div>
         <div class="w-full mt-4">

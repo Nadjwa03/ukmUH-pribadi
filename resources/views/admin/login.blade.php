@@ -14,14 +14,14 @@
       <label for="email-input" class="block mb-2 text-sm font-medium text-neutral-900">Email</label>
       <input name="email" type="email" id="email-input" class="bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
       @error('email')
-      <div class="text-xs text-red-600">{{ $message }}</div>
+      <div class="text-xs text-red-600 mt-0.5">{{ $message }}</div>
       @enderror
     </div>
     <div class="w-full mt-4">
       <label for="password-input" class="block mb-2 text-sm font-medium text-neutral-900">Password</label>
       <input name="password" type="password" id="password-input" class="bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
       @error('password')
-      <div class="text-xs text-red-600">{{ $message }}</div>
+      <div class="text-xs text-red-600 mt-0.5">{{ $message }}</div>
       @enderror
     </div>
     <div class="w-full mt-6">

@@ -25,13 +25,13 @@ class ClubController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2',
-            'logo' => 'file|mimes:jpg,png,svg,webp|max:8192',
+            'logo' => 'nullable|file|mimes:jpg,png,svg,webp|max:8192',
         ], [
             'name.required' => 'Nama UKM tidak boleh kosong.',
             'name.min' => 'Nama UKM minimal 2 karakter.',
             'logo.file' => 'Logo UKM wajib merupakan file.',
             'logo.mimes' => 'Logo UKM wajib berekstensi JPG, PNG, WEBP, atau SVG.',
-            'logo.max' => 'Ukuran file logo UKM maksimum 4MB.'
+            'logo.max' => 'Ukuran file logo UKM maksimum 8MB.'
         ]);
 
         if ($request->file('logo')->isValid()) {
@@ -50,7 +50,7 @@ class ClubController extends Controller
 
     public function view_edit(string $id)
     {
-        $club = Club::find($id);
+        $club = Club::withTrashed()->find($id);
 
         return view('admin.club.form', ['mode' => 'edit', 'data' => $club]);
     }
@@ -68,7 +68,7 @@ class ClubController extends Controller
             'logo.max' => 'Ukuran file logo UKM maksimum 8MB.'
         ]);
 
-        $club = Club::findOrFail($id);
+        $club = Club::withTrashed()->findOrFail($id);
 
         $data = [
             'name' => $request->name,
@@ -103,5 +103,12 @@ class ClubController extends Controller
         $club->restore();
 
         return redirect()->route('admin.club.index');
+    }
+
+    public function details(string $id)
+    {
+        $club = Club::withTrashed()->findOrFail($id);
+
+        return view('admin.club.details', ['club' => $club]);
     }
 }

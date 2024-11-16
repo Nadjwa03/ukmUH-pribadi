@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckRole
@@ -18,10 +19,24 @@ class CheckRole
     {
         $user = Auth::user();
 
+        if (!$user->is_verified) {
+            return redirect()->route('admin.view_change_password');
+        }
+
         if ($user && in_array($user->role, $roles)) {
+            if ($user->role == 'admin') {
+                $route = $request->route();
+                if (Route::is('admin.club.*') && $route->parameter('id') != $user->club_id) {
+                    return redirect()->route('admin.club.details', ['id' => $user->club_id]);
+                }
+            }
             return $next($request);
         }
 
-        return redirect()->route('unauthorized')->with('error', 'You are not authorized to access this page.');
+        if ($user->role == 'admin') {
+            return redirect()->route('admin.club.details', ['id' => $user->club_id]);
+        }
+
+        return redirect()->route('admin.unauthorized')->with('error', 'You are not authorized to access this page.');
     }
 }
