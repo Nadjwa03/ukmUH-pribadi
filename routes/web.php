@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\AccomplishmentController;
+use App\Http\Controllers\ClubAccomplishmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClubController;
+use App\Http\Controllers\ClubDocumentationController;
+use App\Http\Controllers\ClubEventController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\UserController;
@@ -31,7 +33,33 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::patch('/{id}/activate', [ClubController::class, 'activate'])->name('activate')->middleware('role:superadmin');
 
         Route::prefix('{clubId}/accomplishment')->name('accomplishment.')->middleware('role:superadmin,admin')->group(function () {
-            Route::get('/', [AccomplishmentController::class, 'index'])->name('index');
+            Route::get('/', [ClubAccomplishmentController::class, 'index'])->name('index');
+            Route::get('/create', [ClubAccomplishmentController::class, 'view_create'])->name('view_create');
+            Route::post('/create', [ClubAccomplishmentController::class, 'create'])->name('create');
+            Route::get('/{id}/edit', [ClubAccomplishmentController::class, 'view_edit'])->name('view_edit');
+            Route::put('/{id}/edit', [ClubAccomplishmentController::class, 'edit'])->name('edit');
+            Route::delete('/{id}/deactivate', [ClubAccomplishmentController::class, 'deactivate'])->name('deactivate');
+            Route::patch('/{id}/activate', [ClubAccomplishmentController::class, 'activate'])->name('activate');
+        });
+
+        Route::prefix('{clubId}/documentation')->name('documentation.')->middleware('role:superadmin,admin')->group(function () {
+            Route::get('/', [ClubDocumentationController::class, 'index'])->name('index');
+            Route::get('/create', [ClubDocumentationController::class, 'view_create'])->name('view_create');
+            Route::post('/create', [ClubDocumentationController::class, 'create'])->name('create');
+            Route::get('/{id}/edit', [ClubDocumentationController::class, 'view_edit'])->name('view_edit');
+            Route::put('/{id}/edit', [ClubDocumentationController::class, 'edit'])->name('edit');
+            Route::delete('/{id}/deactivate', [ClubDocumentationController::class, 'deactivate'])->name('deactivate');
+            Route::patch('/{id}/activate', [ClubDocumentationController::class, 'activate'])->name('activate');
+        });
+
+        Route::prefix('{clubId}/event')->name('event.')->middleware('role:superadmin,admin')->group(function () {
+            Route::get('/', [ClubEventController::class, 'index'])->name('index');
+            Route::get('/create', [ClubEventController::class, 'view_create'])->name('view_create');
+            Route::post('/create', [ClubEventController::class, 'create'])->name('create');
+            Route::get('/{id}/edit', [ClubEventController::class, 'view_edit'])->name('view_edit');
+            Route::put('/{id}/edit', [ClubEventController::class, 'edit'])->name('edit');
+            Route::delete('/{id}/deactivate', [ClubEventController::class, 'deactivate'])->name('deactivate');
+            Route::patch('/{id}/activate', [ClubEventController::class, 'activate'])->name('activate');
         });
     });
 

@@ -107,7 +107,7 @@ class ClubController extends Controller
 
     public function details(string $id)
     {
-        $club = Club::withTrashed()->findOrFail($id);
+        $club = Club::findOrFail($id);
 
         return view('admin.club.details', ['club' => $club]);
     }

@@ -13,13 +13,13 @@
   </aside>
   <div class="min-h-screen bg-neutral-100 w-full">
     <h1 class="font-medium h-16 flex items-center text-xl px-6 py-4 bg-white">{{ $mode == 'edit' ? 'Edit' : 'Buat' }} User</h1>
-    <div class="flex flex-col items-center px-6 py-6">
+    <div class="flex flex-col items-center mt-8 px-6 py-6">
       <form action="{{ $mode == 'edit' ? route('admin.user.edit', $data->id) : route('admin.user.create') }}" enctype="multipart/form-data" method="post" class="flex flex-col items-center max-w-96 w-full">
         @csrf
         @if($mode == 'edit')
         @method('PUT')
         @endif
-        <div class="w-full mt-8">
+        <div class="w-full">
           <label for="name-input" class="block mb-2 text-sm font-medium text-neutral-900">Name</label>
           <input value="{{ old('name', $data->name ?? '') }}" name="name" type="text" id="name-input" placeholder="Input nama lengkap" class="bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
           @error('name')
@@ -35,7 +35,7 @@
         </div>
         <div class="w-full mt-4">
           <label for="role-select" class="block mb-2 text-sm font-medium text-neutral-900">Role</label>
-          <select id="role-select" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+          <select id="role-select" name="role" class="bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
             <option value="admin" {{ old('role', $data->role ?? '') == 'admin' ? 'selected' : '' }}>Admin</option>
             <option value="superadmin" {{ old('role', $data->role ?? '') == 'superadmin' ? 'selected' : '' }}>Super Admin</option>
           </select>
@@ -45,7 +45,7 @@
         </div>
         <div id="club-select-container" class="w-full mt-4">
           <label for="club-select" class="block mb-2 text-sm font-medium text-neutral-900">UKM</label>
-          <select id="club-select" name="club" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+          <select id="club-select" name="club" class="bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
             <option value="none">Pilih UKM</option>
             @foreach($clubs as $club)
             <option value="{{ $club->id }}" {{ old('club', $data->club_id ?? '') == $club->id ? 'selected' : '' }}>{{ $club->name }}</option>

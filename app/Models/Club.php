@@ -40,4 +40,19 @@ class Club extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function accomplishments()
+    {
+        return $this->hasMany(ClubAccomplishment::class);
+    }
+
+    public function documentations()
+    {
+        return $this->hasMany(ClubDocumentation::class);
+    }
+
+    public function events()
+    {
+        return $this->hasMany(ClubEvent::class);
+    }
 }
