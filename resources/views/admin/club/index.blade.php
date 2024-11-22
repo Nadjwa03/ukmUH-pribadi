@@ -7,6 +7,7 @@
   <aside class="h-full w-80">
     @include('partials.admin-sidebar')
   </aside>
+  
   <div class="min-h-screen bg-neutral-100 w-full">
     <h1 class="font-medium h-16 flex items-center text-xl px-6 py-4 bg-white">Manajemen UKM</h1>
     <div class="flex flex-col px-6 py-6 space-y-4">
